@@ -1,0 +1,14 @@
+{
+  "Settings": "Settings",
+  "Language": "Language",
+  "Mode": "Mode",
+  "Direction": "Direction",
+  "Create post": "Create Post (Custom)",
+  "pages": {
+    "/": "Home Page",
+    "/posts": "Posts",
+    "/posts/list": "Posts List",
+    "/posts/create": "Create Post",
+    "/validation": "Validation"
+  }
+}

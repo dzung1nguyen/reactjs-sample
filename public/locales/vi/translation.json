@@ -1,0 +1,14 @@
+{
+  "Settings": "Cài đặt",
+  "Language": "Ngôn ngữ",
+  "Mode": "Chế độ",
+  "Direction": "Chiều hướng",
+  "Create post": "Tạo bài đăng",
+  "pages": {
+    "/": "Trang chủ",
+    "/posts": "Bài viết",
+    "/posts/lits": "Danh sách bài viết",
+    "/posts/create": "Tạo bài viết",
+    "/validation": "Xác thực dữ liệu"
+  }
+}
