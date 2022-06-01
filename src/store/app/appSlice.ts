@@ -4,18 +4,23 @@ import { supportedModes, supportedDirections, supportedLangs, defaultLang, defau
 import StorageUtil from '@/utils/storageUtil'
 import { DefaultItemType } from '@/app/types';
 
-type stateType = {
+type StateType = {
   mode: 'light' | 'dark' | 'system',
   direction: 'ltr' | 'rtl',
-  lang: string,
+  lang: string
   supportedModes: DefaultItemType[]
-  supportedDirections: DefaultItemType[],
-  supportedLangs: DefaultItemType[],
-  drawerSettingOpen: boolean,
+  supportedDirections: DefaultItemType[]
+  supportedLangs: DefaultItemType[]
+  drawerSettingOpen: boolean
   drawerMenuOpen: boolean
+  loading: boolean
+  redirect: {
+    path?: string | null
+    replace: boolean
+  }
 }
 
-const initialState: stateType = {
+const initialState: StateType = {
   mode: StorageUtil.get('THEME_MODE', defaultMode),
   direction: StorageUtil.get('DIRECTION', defaultDirection),
   lang: defaultLang,
@@ -24,6 +29,11 @@ const initialState: stateType = {
   supportedLangs: [...supportedLangs],
   drawerSettingOpen: false,
   drawerMenuOpen: false,
+  loading: false,
+  redirect: {
+    path: null,
+    replace: false
+  }
 }
 
 export const appSlice = createSlice({
@@ -56,11 +66,21 @@ export const appSlice = createSlice({
     setDrawerMenuOpen: (state, action) => {
       state.drawerMenuOpen = action.payload
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    },
+    setRedirect: (state, action: {type: string, payload: {path?: string, replace?:boolean}}) => {
+      const { path, replace } = action.payload
+      state.redirect = {
+        path: path || null,
+        replace: replace || false
+      }
+    },
   },
 })
 
 // actions
-export const { setMode, setDirection, setLang, setDrawerSettingOpen, setDrawerMenuOpen } = appSlice.actions
+export const { setMode, setDirection, setLang, setDrawerSettingOpen, setDrawerMenuOpen, setLoading, setRedirect } = appSlice.actions
 
 // selector
 export const selectMode = (state: RootState) => state.app.mode
@@ -72,5 +92,7 @@ export const selectCurrentLang = (state: RootState) => state.app.supportedLangs.
 export const selectSupportedLangs = (state: RootState) => state.app.supportedLangs
 export const selectDrawerSettingOpen = (state: RootState) => state.app.drawerSettingOpen
 export const selectDrawerMenuOpen = (state: RootState) => state.app.drawerMenuOpen
+export const selectLoading = (state: RootState) => state.app.loading
+export const selectRedirect = (state: RootState) => state.app.redirect
 
 export default appSlice.reducer

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import FormValidation from '@/utils/formValidation';
 import { TextField, Button, Grid } from '@mui/material';
 import { useAppDispatch } from '@/app/hooks'
@@ -20,7 +19,6 @@ const postState: PostState = {
 
 const HomePage: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate();
 
   const [post, setPost] = React.useState<PostState>(postState);
 
@@ -60,13 +58,10 @@ const HomePage: React.FC = (): JSX.Element => {
       console.log(formValidate.getErrors())
       return false
     }
-    await dispatch({
+    dispatch({
       type: actions.CREATE_POST,
       payload: post
     })
-
-    // redirect to list
-    navigate('/posts', { replace: true })
   }
 
   const reset = async () => {

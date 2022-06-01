@@ -3,6 +3,8 @@ import { setPosts, } from '@/store/post/postSlice'
 import PostAPI from '@/api/PostApi'
 import actions from '@/store/post/actions'
 import { PostType } from '@/app/types'
+import { setLoading, setRedirect } from '@/store/app/appSlice';
+import { successAlert, errorAlert } from '@/store/alert/alertSlice';
 
 function* getPostsSaga() {
   const data: PostType[] = yield PostAPI.all()
@@ -10,7 +12,17 @@ function* getPostsSaga() {
 }
 
 function* createPostSaga(action: { type: string, payload: PostType }) {
-  yield PostAPI.create(action.payload)
+  yield put(setLoading(true))
+  try {
+    yield PostAPI.create(action.payload)
+    yield put(successAlert('Success'))
+    yield put(setRedirect({path: '/posts/list'}))
+  } catch (e: any) {
+    console.log('e', e)
+    yield put(errorAlert(e.message))
+  }
+  yield put(setLoading(false))
+
 }
 
 function* updatePostSaga(action: { type: string, payload: PostType }) {

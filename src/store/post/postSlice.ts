@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '@/app/store'
 import { PostType } from '@/app/types'
 
-type stateType = {
+type StateType = {
   posts: PostType[]
   post: PostType | undefined
 }
 
-const initialState: stateType = {
+const initialState: StateType = {
   posts: [],
   post: undefined,
 }

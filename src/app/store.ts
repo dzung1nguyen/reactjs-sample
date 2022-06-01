@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
+import createSagaMiddleware from 'redux-saga'
 import postReducer from '@/store/post/postSlice'
 import appReducer from '@/store/app/appSlice'
-import createSagaMiddleware from 'redux-saga'
+import alertReducer from '@/store/alert/alertSlice'
 import rootSaga from './saga'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
     app: appReducer,
     post: postReducer,
+    alert: alertReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware)
 })

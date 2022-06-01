@@ -1,7 +1,7 @@
 import { CircularProgress } from '@mui/material'
 import React, { Suspense } from 'react'
 import { RouteObject, useRoutes } from 'react-router-dom'
-const DefaultLayout = React.lazy(() => import('@/layout/default/index'))
+import DefaultLayout from '@/layout/default/index'
 const HomePage = React.lazy(() => import('@/pages/home/index'))
 const Page404 = React.lazy(() => import('@/pages/error/404'))
 const PostIndex = React.lazy(() => import('@/pages/post/index'))

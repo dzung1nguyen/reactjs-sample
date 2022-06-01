@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { baseAPI } from '@/app/config'
 import { AxiosRequestConfigType } from '@/app/types'
+import { store } from '@/app/store'
+import { errorAlert } from '@/store/alert/alertSlice';
 
 const axiosClient = axios.create({
   baseURL: baseAPI,
@@ -15,8 +17,9 @@ const axiosClient = axios.create({
 axiosClient.interceptors.response.use(
   (response: AxiosResponse) => response.data,
   (error: AxiosError) => {
+    store.dispatch(errorAlert(error.message)) // Example to use store
     if (error.response?.status === 401) {
-      // handlde
+      // Handle
     }
     return Promise.reject(error)
   },
